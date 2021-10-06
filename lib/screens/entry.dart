@@ -1,6 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../widgets/login.dart';
 
@@ -11,6 +12,12 @@ class EntryScreen extends StatefulWidget {
 
 class _EntryScreenState extends State<EntryScreen> {
   @override
+  void initState() {
+    hasAvailableSession();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
 
@@ -19,5 +26,13 @@ class _EntryScreenState extends State<EntryScreen> {
         child: Login(),
       ),
     );
+  }
+}
+
+void hasAvailableSession() async{
+  var session = await Amplify.Auth.fetchAuthSession();
+
+  if(session.isSignedIn){
+    Get.toNamed("/dashboard");
   }
 }

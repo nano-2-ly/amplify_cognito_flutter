@@ -14,12 +14,15 @@ class _LoginState extends State<Login> {
   bool _isSignedIn = false;
 
   Future<String> _onLogin(LoginData data) async {
+
+
     try {
       final res = await Amplify.Auth.signIn(
         username: data.name,
         password: data.password,
       );
 
+      _data = data;
       _isSignedIn = res.isSignedIn;
       return "";
     } on AuthException catch (e) {
@@ -78,7 +81,8 @@ class _LoginState extends State<Login> {
         primaryColor: Theme.of(context).primaryColor,
       ),
       onSubmitAnimationCompleted: () {
-        Get.toNamed(
+        print(_data);
+        Get.offAndToNamed(
           _isSignedIn ? '/dashboard' : '/confirm',
           arguments: _data,
         );

@@ -9,22 +9,22 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  late AuthUser _user;
 
+  Future<AuthUser> getCurrentUser() async{
+    var _currentUser = await Amplify.Auth.getCurrentUser();
+
+    return _currentUser;
+  }
   @override
   void initState() {
     super.initState();
-    Amplify.Auth.getCurrentUser().then((user) {
-      setState(() {
-        _user = user;
-      });
-    }).catchError((error) {
-      print((error as AuthException).message);
-    });
+
+    getCurrentUser();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Dashboard'),
@@ -32,7 +32,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           MaterialButton(
             onPressed: () {
               Amplify.Auth.signOut().then((_) {
-                Get.to('/');
+                Get.toNamed('/');
               });
             },
             child: Icon(
@@ -47,19 +47,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (_user == null)
-                Text(
-                  'Loading...',
-                )
-              else ...[
-                Text(
-                  'Hello 👋🏾',
-                  style: Theme.of(context).textTheme.headline2,
-                ),
-                Text(_user.username),
-                SizedBox(height: 10),
-                Text(_user.userId),
-              ],
+            FutureBuilder(
+            future: getCurrentUser(),
+              builder: (BuildContext context, AsyncSnapshot<AuthUser> snapshot) {
+
+                if (snapshot.hasData == false) {
+                  return CircularProgressIndicator();
+                }
+                //error가 발생하게 될 경우 반환하게 되는 부분
+                else if (snapshot.hasError) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Error: ${snapshot.error}',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  );
+                }
+                // 데이터를 정상적으로 받아오게 되면 다음 부분을 실행하게 되는 것이다.
+                else {
+                  return Column(children: [
+                    Text(
+                      'Hello 👋🏾',
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
+                    Text(snapshot.data!.username),
+                    SizedBox(height: 10),
+                    Text(snapshot.data!.userId),
+                  ],);
+                }
+              }),
+
             ],
           ),
         ),
