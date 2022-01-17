@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cognitotest.amplify_cognito_flutter">
+    package="com.iorify.iorilock">
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
@@ -12,7 +12,7 @@
     </queries>
 
    <application
-        android:label="amplify_cognito_flutter"
+        android:label="iorilock"
         android:icon="@mipmap/ic_launcher">
        <activity
            android:name="com.amplifyframework.auth.cognito.activities.HostedUIRedirectActivity"

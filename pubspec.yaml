@@ -33,6 +33,14 @@ dependencies:
   amplify_analytics_pinpoint: ^0.2.4
   flutter_login: ^2.2.1
   get: ^4.3.8
+  http: ^0.13.1
+  firebase_messaging: ^10.0.3
+  flutter_local_notifications: ^8.1.1+1
+
+  carousel_slider: ^4.0.0
+  flutter_svg: ^0.22.0
+  flutter_time_picker_spinner: ^2.0.0
+  google_fonts: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -50,9 +58,13 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+     - assets/images/desktop.svg
+     - assets/images/testMarketingImage.png
+     - assets/images/desktop_normal.png
+     - assets/images/desktop_unlocked.png
+     - assets/images/desktop_locked.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

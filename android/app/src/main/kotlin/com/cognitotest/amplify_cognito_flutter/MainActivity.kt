@@ -1,4 +1,4 @@
-package com.cognitotest.amplify_cognito_flutter
+package com.iorify.iorilock
 
 import io.flutter.embedding.android.FlutterActivity
 

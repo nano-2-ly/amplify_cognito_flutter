@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "656654277978",
+    "project_id": "iorilock-mobile-app",
+    "storage_bucket": "iorilock-mobile-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656654277978:android:b159ed348e91b24d0b2763",
+        "android_client_info": {
+          "package_name": "com.iorify.iorilock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656654277978-ei1h27evl5patgv1accajrjb1b0esj7d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLhtQz0v0BTHiPKB5V4eI7_fJ2nf3OCxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656654277978-ei1h27evl5patgv1accajrjb1b0esj7d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

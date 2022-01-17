@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
 
 class ConfirmScreen extends StatefulWidget {
   final LoginData data = Get.arguments;
@@ -26,8 +30,39 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     });
   }
 
+
+  void initUser() async{
+    var session = await Amplify.Auth.fetchAuthSession(options: CognitoSessionOptions(getAWSCredentials: true)) as CognitoAuthSession;
+    print(session.userPoolTokens!.accessToken.toString());
+    print(session);
+    print(Amplify.Auth.fetchAuthSession().toString());
+    print("Amplify.Auth.fetchAuthSession().toString()");
+    var _currentUser = await Amplify.Auth.getCurrentUser();
+
+    var userInitURI =
+    Uri.parse('https://6hlig5bzq0.execute-api.ap-northeast-2.amazonaws.com/default/iorilock-signup-setting');
+
+    final response = await http.post(userInitURI,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        "Accept": "*/*",
+        'email': _currentUser.username,
+        'uid' : _currentUser.userId,
+        'AccessToken' : session.userPoolTokens!.accessToken.toString()
+      },
+      body: '{}',
+    );
+
+    print(response.body);
+
+  }
+
+
   void _verifyCode(BuildContext context, LoginData data, String code) async {
+
     try {
+      initUser();
+
       final res = await Amplify.Auth.confirmSignUp(
         username: data.name,
         confirmationCode: code,
@@ -37,6 +72,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
         // Login user
         final user = await Amplify.Auth.signIn(
             username: data.name, password: data.password);
+
 
         if (user.isSignedIn) {
           Get.toNamed('/dashboard');

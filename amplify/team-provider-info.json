@@ -1,19 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amplifycognitoflutte-dev-02750-authRole",
-      "UnauthRoleArn": "arn:aws:iam::807727879369:role/amplify-amplifycognitoflutte-dev-02750-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::807727879369:role/amplify-amplifycognitoflutte-dev-02750-authRole",
+      "AuthRoleName": "amplify-iorilockmobileapp-dev-02009-authRole",
+      "UnauthRoleArn": "arn:aws:iam::807727879369:role/amplify-iorilockmobileapp-dev-02009-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::807727879369:role/amplify-iorilockmobileapp-dev-02009-authRole",
       "Region": "ap-northeast-2",
-      "DeploymentBucketName": "amplify-amplifycognitoflutte-dev-02750-deployment",
-      "UnauthRoleName": "amplify-amplifycognitoflutte-dev-02750-unauthRole",
-      "StackName": "amplify-amplifycognitoflutte-dev-02750",
-      "StackId": "arn:aws:cloudformation:ap-northeast-2:807727879369:stack/amplify-amplifycognitoflutte-dev-02750/f83faa90-26b9-11ec-aaa2-02cc43775eac",
-      "AmplifyAppId": "du600fyeocb5u"
+      "DeploymentBucketName": "amplify-iorilockmobileapp-dev-02009-deployment",
+      "UnauthRoleName": "amplify-iorilockmobileapp-dev-02009-unauthRole",
+      "StackName": "amplify-iorilockmobileapp-dev-02009",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:807727879369:stack/amplify-iorilockmobileapp-dev-02009/d27d9dd0-6403-11ec-b534-0aa419ff9968",
+      "AmplifyAppId": "d2499f9wwjx831"
     },
     "categories": {
       "auth": {
-        "amplifycognitoflutte05ed2a8d": {}
+        "iorilockmobileappb9fdf93a": {}
       }
     }
   }
