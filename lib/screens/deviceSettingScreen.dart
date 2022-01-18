@@ -20,9 +20,20 @@ class deviceSettingScreen extends StatelessWidget {
 
     getDeviceShadow(Get.arguments["uuid"], true);
     return Scaffold(
-
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black87, //change your color here
+        ),
+        title: Center(child: appBarText("기기 설정")),
+        backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
+        actions: [
+          Container(width:52)
+        ],
+      ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(24, 100, 24, 50),
+        padding: EdgeInsets.fromLTRB(24, 10, 24, 50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -32,10 +43,9 @@ class deviceSettingScreen extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  height: 250,
+
                   margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       alarmAllowCheckboxWidget(),
                       powerAlarmAllowCheckboxWidget(),
@@ -45,7 +55,7 @@ class deviceSettingScreen extends StatelessWidget {
                     ],
                   )
                 ),
-                saveButtonWidget(Get.arguments["uuid"], startTimeValue, finishTimeValue)
+                saveButtonWidget(Get.arguments["uuid"], Get.arguments['name'], startTimeValue, finishTimeValue)
               ],
             )
           ],
@@ -59,6 +69,7 @@ class deviceSettingScreen extends StatelessWidget {
 Widget alarmAllowCheckboxWidget(){
   final deviceShadow = Get.put(deviceShadowController());
   return Obx(()=>Container(
+    padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -79,9 +90,10 @@ Widget alarmAllowCheckboxWidget(){
   ));
 }
 
-Widget saveButtonWidget(uuid, startTimeValue, finishTimeValue){
+Widget saveButtonWidget(uuid, name ,startTimeValue, finishTimeValue){
   final deviceShadow = Get.put(deviceShadowController());
   return Container(
+
     height: 50,
     color: mainPurpleColor,
     child: InkWell(
@@ -97,6 +109,21 @@ Widget saveButtonWidget(uuid, startTimeValue, finishTimeValue){
         };
 
         updateDeviceShadowDesired(uuid, deviceShadowJson);
+
+
+        Get.back();
+
+
+        Get.showSnackbar(
+          GetBar(
+            title: '저장되었습니다.',
+            message: '${name}의 설정이 변경되었습니다.',
+            duration: Duration(seconds: 2),
+            snackPosition: SnackPosition.BOTTOM,
+          ),
+        );
+
+
       },
     ),
   );
@@ -105,6 +132,7 @@ Widget saveButtonWidget(uuid, startTimeValue, finishTimeValue){
 Widget powerAlarmAllowCheckboxWidget(){
   final deviceShadow = Get.put(deviceShadowController());
   return Obx(()=>Container(
+    padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -130,6 +158,7 @@ Widget workingTimePickerWidget(startTimeValue, finishTimeValue){
   final deviceShadow = Get.put(deviceShadowController());
 
   return Obx(()=>Container(
+    padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

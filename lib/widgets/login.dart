@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return FlutterLogin(
-      title: 'AMPLIFY',
+
       onLogin: _onLogin,
       onRecoverPassword: (String email) => _onRecoverPassword(context, email),
       onSignup: _onSignup,
@@ -87,6 +87,20 @@ class _LoginState extends State<Login> {
           arguments: _data,
         );
       },
+      messages: LoginMessages(
+        userHint: '이메일',
+        passwordHint: '비밀번호',
+        confirmPasswordHint: '비밀번호 확인',
+        loginButton: '로그인',
+        signupButton: '회원가입',
+        forgotPasswordButton: '비밀번호를 잊으셨나요?',
+        recoverPasswordButton: '비밀번호 재설정',
+        goBackButton: '뒤로가기',
+        confirmPasswordError: '비밀번호가 다릅니다.',
+        recoverPasswordDescription:
+        '비밀번호를 재설정합니다.',
+        recoverPasswordSuccess: '비밀번호가 재설정되었습니다.',
+      ),
     );
   }
 }

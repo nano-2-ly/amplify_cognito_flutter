@@ -10,11 +10,23 @@ class settingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black87, //change your color here
+        ),
+        title: Center(child: appBarText("설정")),
+        backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
+        actions: [
+          Container(width:52)
+        ],
+      ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(24, 100, 24, 24),
+        padding: EdgeInsets.fromLTRB(24, 38, 24, 24),
         child: Container(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
             children: [
               versionDisplayWidget(),
               signOutButtonWidget(),
@@ -29,6 +41,7 @@ class settingScreen extends StatelessWidget {
 
 Widget versionDisplayWidget(){
   return Container(
+    padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -46,6 +59,7 @@ Widget versionDisplayWidget(){
 
 Widget signOutButtonWidget(){
   return Container(
+    padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -58,7 +72,7 @@ Widget signOutButtonWidget(){
         InkWell(
           onTap: () {
             Amplify.Auth.signOut().then((_) {
-              Get.toNamed('/');
+              Get.offAllNamed('/');
             });
           },
           child: Icon(

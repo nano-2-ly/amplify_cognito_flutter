@@ -35,17 +35,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black87, //change your color here
+        ),
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
         actions: [
-          MaterialButton(
-            onPressed: () {
-              Get.toNamed('/setting');
-            },
-            child: Icon(
-              Icons.settings,
-              color: Color(0xff191919),
+          Container(
+            padding: EdgeInsets.all(16),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed('/setting');
+              },
+              child: Icon(
+                Icons.settings,
+                color: Color(0xff191919),
+              ),
             ),
           )
         ],

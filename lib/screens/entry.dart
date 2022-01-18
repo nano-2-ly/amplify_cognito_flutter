@@ -20,7 +20,7 @@ class _EntryScreenState extends State<EntryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: OAuthFAB(),
+      // floatingActionButton: OAuthFAB(),
       backgroundColor: Colors.deepPurple,
       body: Center(
         child: Login(),
@@ -33,7 +33,7 @@ void hasAvailableSession() async{
   var session = await Amplify.Auth.fetchAuthSession();
 
   if(session.isSignedIn){
-    Get.toNamed("/dashboard");
+    Get.offAndToNamed("/dashboard");
   }
 }
 
@@ -52,7 +52,7 @@ Widget OAuthFAB(){
               SignInResult res = await Amplify.Auth.signInWithWebUI(provider: AuthProvider.google);
               print("res.isSignedIn");
               if(res.isSignedIn){
-                Get.toNamed("/dashboard");
+                Get.offAndToNamed("/dashboard");
               }
             } on AuthException catch (e) {
               print("e.message");
@@ -76,7 +76,7 @@ Widget OAuthFAB(){
               SignInResult res = await Amplify.Auth.signInWithWebUI(provider: AuthProvider.facebook);
               print("res.isSignedIn");
               if(res.isSignedIn){
-                Get.toNamed("/dashboard");
+                Get.offAndToNamed ("/dashboard");
               }
             } on AuthException catch (e) {
               print("e.message");
