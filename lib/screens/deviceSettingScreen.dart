@@ -14,8 +14,8 @@ class deviceSettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String startTimeValue = Get.arguments["deviceShadow"]["state"]["desired"]["monitorStartTime"];
-    String finishTimeValue = Get.arguments["deviceShadow"]["state"]["desired"]["monitorFinishTime"];
+    String startTimeValue = Get.arguments["deviceShadow"]["state"]["desired"]["workingStartTime"];
+    String finishTimeValue = Get.arguments["deviceShadow"]["state"]["desired"]["workingFinishTime"];
 
 
     getDeviceShadow(Get.arguments["uuid"], true);
@@ -102,8 +102,8 @@ Widget saveButtonWidget(uuid, name ,startTimeValue, finishTimeValue){
       ),
       onTap: (){
         dynamic deviceShadowJson={
-          "monitorStartTime":startTimeValue,
-          "monitorFinishTime":finishTimeValue,
+          "workingStartTime":startTimeValue,
+          "workingFinishTime":finishTimeValue,
           "alarmAllow": deviceShadow.alarmAllow.value,
           "powerAlarmAllow":deviceShadow.powerAlarmAllow.value
         };

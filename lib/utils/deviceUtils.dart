@@ -54,8 +54,8 @@ Future<dynamic> getDeviceShadow(String uuid, bool useDeviceShadowController) asy
     final deviceShadow = Get.put(deviceShadowController());
     deviceShadow.alarmAllow.value = jsonDecode(response.body)["state"]["desired"]["alarmAllow"] as bool;
     deviceShadow.powerAlarmAllow.value = jsonDecode(response.body)["state"]["desired"]["powerAlarmAllow"] as bool;
-    deviceShadow.monitorStartTime.value = jsonDecode(response.body)["state"]["desired"]["monitorStartTime"] as String;
-    deviceShadow.monitorFinishTime.value = jsonDecode(response.body)["state"]["desired"]["monitorFinishTime"] as String;
+    deviceShadow.monitorStartTime.value = jsonDecode(response.body)["state"]["desired"]["workingStartTime"] as String;
+    deviceShadow.monitorFinishTime.value = jsonDecode(response.body)["state"]["desired"]["workingFinishTime"] as String;
 
   }
 
