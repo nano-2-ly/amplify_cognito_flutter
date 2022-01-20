@@ -43,9 +43,13 @@ class deviceListWidget extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(0,0,8,0),
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
+
+                    String device_uuid = snapshot.data[index].keys.toList()[0];
+
                     print("snapshot.data[index]  :  ");
-                    print(snapshot.data[index].keys.toList()[0]);
-                    return deviceButtonWidget(snapshot.data[index].keys.toList()[0]);
+                    print(device_uuid);
+                    print(snapshot.data[index][device_uuid]);
+                    return deviceButtonWidget(device_uuid, snapshot.data[index][device_uuid]);
                   },
                 ),
               );
@@ -60,7 +64,7 @@ class deviceListWidget extends StatelessWidget {
 
 
 
-Widget deviceButtonWidget(String uuid){
+Widget deviceButtonWidget(String uuid, String key){
   return Container(
     height: 100,
     child: Column(
@@ -90,7 +94,7 @@ Widget deviceButtonWidget(String uuid){
 
                 return InkWell(
                   onTap: (){
-                    Get.toNamed("/device", arguments: {"uuid":uuid, "name":snapshot.data["state"]["desired"]["name"].toString(), "deviceShadow": snapshot.data});
+                    Get.toNamed("/device", arguments: {"uuid":uuid, "key" : key, "name":snapshot.data["state"]["desired"]["name"].toString(), "deviceShadow": snapshot.data});
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

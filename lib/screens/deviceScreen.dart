@@ -37,7 +37,7 @@ class deviceScreen extends StatelessWidget {
               child: Column(
 
                 children: [
-                  lockButtonWidget(Get.arguments['uuid'], Get.arguments['name']),
+                  lockButtonWidget(Get.arguments['uuid'], Get.arguments['name'], Get.arguments['key']),
                   deviceSettingButtonWidget(Get.arguments['uuid']),
                   deviceDeleteButtonWidget(Get.arguments['uuid'], Get.arguments['name']),
                 ],
@@ -52,7 +52,7 @@ class deviceScreen extends StatelessWidget {
 }
 
 
-Widget lockButtonWidget(String uuid, String name){
+Widget lockButtonWidget(String uuid, String name, String key){
   return Container(
     padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
     child: Row(
@@ -69,7 +69,7 @@ Widget lockButtonWidget(String uuid, String name){
 
           child: Icon(Icons.lock_outline_rounded),
           onTap: () async{
-            lockScreen(uuid);
+            lockScreen(uuid, key);
 
             Get.showSnackbar(
               GetBar(

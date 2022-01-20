@@ -5,7 +5,7 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:http/http.dart' as http;
 
 
-void lockScreen(String uuid) async {
+void lockScreen(String uuid, String key) async {
   var session = await Amplify.Auth.fetchAuthSession(
       options: CognitoSessionOptions(getAWSCredentials: true))
   as CognitoAuthSession;
@@ -25,7 +25,7 @@ void lockScreen(String uuid) async {
     },
     body: jsonEncode({
       "device_uuid": uuid,
-      "key": "e86e6100-64b9-4e58-9fa2-d38893f088bb",
+      "key": key,
       "lock": true
     }),
   );
