@@ -76,8 +76,8 @@ Future<void> _showNotification() async {
 
   await _flutterLocalNotificationsPlugin.show(
     0,
-    '디엠시스템',
-    '화재가 감지되었습니다.',
+    '잠금이 해제되었습니다.',
+    '방금 데스크탑을 직접 해제하였나요? 확인해주세요!',
     detail,
     payload: 'Hello Flutter',
   );
@@ -88,11 +88,7 @@ void fcm_ready() async{
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
 
-  print(
-      'FlutterFire Messaging Example: Subscribing to topic "d6409548-4d23-4c7f-982b-bdd3f9f57a68/notification".');
   await FirebaseMessaging.instance.subscribeToTopic("notification");
-  print(
-      'FlutterFire Messaging Example: Subscribing to topic "d6409548-4d23-4c7f-982b-bdd3f9f57a68/notification" successful.');
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Got a message whilst in the foreground!');
     print('Message data: ${message.data}');
