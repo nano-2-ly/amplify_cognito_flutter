@@ -1,8 +1,11 @@
+import 'package:amplify_cognito_flutter/analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:get/get.dart';
+
+import '../analytics_events.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -14,7 +17,7 @@ class _LoginState extends State<Login> {
   bool _isSignedIn = false;
 
   Future<String> _onLogin(LoginData data) async {
-
+    AnalyticsService.log(LoginEvent());
 
     try {
       final res = await Amplify.Auth.signIn(
@@ -61,6 +64,8 @@ class _LoginState extends State<Login> {
           'email': data.name,
         }),
       );
+
+
 
       _data = data;
 

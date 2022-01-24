@@ -26,5 +26,11 @@
         ]
       }
     }
+  },
+  "analytics": {
+    "iorilockmobileapp": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

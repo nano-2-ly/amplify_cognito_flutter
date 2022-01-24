@@ -26,11 +26,11 @@ class deviceScreen extends StatelessWidget {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(24, 10, 24, 150),
+        padding: EdgeInsets.fromLTRB(24, 30, 24, 150),
         child: Column (
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            deviceIcon(Get.arguments['name']),
+            deviceIcon(Get.arguments['name'], Get.arguments['deviceShadow']['state']['reported']["isLocked"],Get.arguments['deviceShadow']['connection']['eventType']),
 
             Container(
 
@@ -54,35 +54,35 @@ class deviceScreen extends StatelessWidget {
 
 Widget lockButtonWidget(String uuid, String name, String key){
   return Container(
+
     padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            settingNameText("기기 잠금"),
-            settingDescriptionText("스위치로 화면을 잠금할 수 있습니다."),
-          ],
-        ),
-        InkWell(
+    child: InkWell(
+      onTap: () async{
+        lockScreen(uuid, key);
 
-          child: Icon(Icons.lock_outline_rounded),
-          onTap: () async{
-            lockScreen(uuid, key);
+        Get.showSnackbar(
+          GetBar(
+            title: '잠금되었습니다.',
+            message: '${name}는 이제 안전합니다.😀',
+            duration: Duration(seconds: 2),
+            snackPosition: SnackPosition.BOTTOM,
+          ),
+        );
 
-            Get.showSnackbar(
-              GetBar(
-                title: '잠금되었습니다.',
-                message: '${name}는 이제 안전합니다.😀',
-                duration: Duration(seconds: 2),
-                snackPosition: SnackPosition.BOTTOM,
-              ),
-            );
-
-          },
-        ),
-      ],
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              settingNameText("기기 잠금"),
+              settingDescriptionText("스위치로 화면을 잠금할 수 있습니다."),
+            ],
+          ),
+          Icon(Icons.lock_outline_rounded),
+        ],
+      ),
     ),
   );
 }
@@ -90,23 +90,23 @@ Widget lockButtonWidget(String uuid, String name, String key){
 Widget deviceSettingButtonWidget(String uuid){
   return Container(
     padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            settingNameText("기기 설정"),
-            settingDescriptionText("기기 설정 페이지로 이동합니다."),
-          ],
-        ),
-        InkWell(
-          child: Icon(Icons.settings),
-          onTap: () async{
-            Get.toNamed("/device/setting", arguments:Get.arguments);
-          },
-        ),
-      ],
+    child: InkWell(
+      onTap: () async{
+        Get.toNamed("/device/setting", arguments:Get.arguments);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              settingNameText("기기 설정"),
+              settingDescriptionText("기기 설정 페이지로 이동합니다."),
+            ],
+          ),
+          Icon(Icons.settings),
+        ],
+      ),
     ),
   );
 }
@@ -114,43 +114,43 @@ Widget deviceSettingButtonWidget(String uuid){
 Widget deviceDeleteButtonWidget(String uuid, String name){
   return Container(
     padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            redSettingNameText("기기 삭제"),
-            redSettingDescriptionText("이 기기를 삭제합니다."),
-          ],
-        ),
-        InkWell(
-          child: Icon(Icons.cancel_outlined, color: alertColor,),
-          onTap: () async{
-            Get.bottomSheet(
+    child: InkWell(
+      onTap: () async{
+        Get.bottomSheet(
 
-                Container(
-                  height: 200,
-                  color: Colors.white,
-                  padding: EdgeInsets.fromLTRB(24, 24, 24, 24),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      alertBottomSheetDescriptionText("기기를 삭제하면 더이상 컴퓨터를 지켜낼 수 없습니다. 정말로 삭제하시겠습니까?"),
-                      deviceDeleteConfirmButtonWidget(uuid, name),
-                    ],
-                  ),
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                    )
+            Container(
+              height: 200,
+              color: Colors.white,
+              padding: EdgeInsets.fromLTRB(24, 24, 24, 24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  alertBottomSheetDescriptionText("기기를 삭제하면 더이상 컴퓨터를 지켜낼 수 없습니다. 정말로 삭제하시겠습니까?"),
+                  deviceDeleteConfirmButtonWidget(uuid, name),
+                ],
+              ),
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
                 )
-            );
-          },
-        ),
-      ],
+            )
+        );
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              redSettingNameText("기기 삭제"),
+              redSettingDescriptionText("이 기기를 삭제합니다."),
+            ],
+          ),
+          Icon(Icons.cancel_outlined, color: alertColor,),
+        ],
+      ),
     ),
   );
 
@@ -166,8 +166,10 @@ Widget deviceDeleteConfirmButtonWidget(uuid, name){
       child: Center(
         child: whiteColorInButtonText("삭제"),
       ),
-      onTap: (){
-        Get.back();
+      onTap: () async{
+        await deleteDevice(uuid);
+        await updateDeviceShadowDesired(uuid,{"isDeleted":true});
+        Get.offAndToNamed('/dashboard');
 
         Get.showSnackbar(
           GetBar(

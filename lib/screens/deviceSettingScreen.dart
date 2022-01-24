@@ -33,17 +33,16 @@ class deviceSettingScreen extends StatelessWidget {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(24, 10, 24, 50),
+        padding: EdgeInsets.fromLTRB(24, 30, 24, 50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             
-            deviceIcon(Get.arguments['name']),
+            deviceIcon(Get.arguments['name'], Get.arguments['deviceShadow']['state']['reported']["isLocked"],Get.arguments['deviceShadow']['connection']['eventType']),
 
             Column(
               children: [
                 Container(
-
                   margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
                   child: Column(
                     children: [
@@ -102,8 +101,8 @@ Widget saveButtonWidget(uuid, name ,startTimeValue, finishTimeValue){
       ),
       onTap: (){
         dynamic deviceShadowJson={
-          "workingStartTime":startTimeValue,
-          "workingFinishTime":finishTimeValue,
+          "workingStartTime":deviceShadow.workingStartTime.value,
+          "workingFinishTime":deviceShadow.workingFinishTime.value,
           "alarmAllow": deviceShadow.alarmAllow.value,
           "powerAlarmAllow":deviceShadow.powerAlarmAllow.value
         };
@@ -174,7 +173,7 @@ Widget workingTimePickerWidget(startTimeValue, finishTimeValue){
           children: [
             InkWell(
               onTap: (){
-                DateTime parseDate =  DateTime.parse('2022-01-01T' + startTimeValue.toString());
+                DateTime parseDate =  DateTime.parse('2022-01-01T' + deviceShadow.workingStartTime.value.toString());
                 Get.bottomSheet(
                     Container(
                       height: 300,
@@ -198,7 +197,7 @@ Widget workingTimePickerWidget(startTimeValue, finishTimeValue){
                               print(time.second);
 
                               startTimeValue = time.hour.toString().padLeft(2, "0") +":"+time.minute.toString().padLeft(2, "0");
-                              deviceShadow.monitorStartTime.value = startTimeValue;
+                              deviceShadow.workingStartTime.value = startTimeValue;
 
                             },
                           )),
@@ -207,7 +206,7 @@ Widget workingTimePickerWidget(startTimeValue, finishTimeValue){
 
                 );
               },
-              child: workingTimeText(deviceShadow.monitorStartTime.value),
+              child: workingTimeText(deviceShadow.workingStartTime.value),
             ),
 
             Text(" ~ "),
@@ -215,7 +214,7 @@ Widget workingTimePickerWidget(startTimeValue, finishTimeValue){
             InkWell(
               onTap: (){
 
-                DateTime parseDate =  DateTime.parse('2022-01-01T' + finishTimeValue.toString());
+                DateTime parseDate =  DateTime.parse('2022-01-01T' + deviceShadow.workingFinishTime.value.toString());
                 Get.bottomSheet(
                     Container(
                       height: 300,
@@ -239,7 +238,7 @@ Widget workingTimePickerWidget(startTimeValue, finishTimeValue){
                               print(time.second);
 
                               startTimeValue = time.hour.toString().padLeft(2, "0") +":"+time.minute.toString().padLeft(2, "0");
-                              deviceShadow.monitorFinishTime.value = startTimeValue;
+                              deviceShadow.workingFinishTime.value = startTimeValue;
 
                             },
                           )),
@@ -248,7 +247,7 @@ Widget workingTimePickerWidget(startTimeValue, finishTimeValue){
 
                 );
               },
-              child: workingTimeText(deviceShadow.monitorFinishTime.value),
+              child: workingTimeText(deviceShadow.workingFinishTime.value),
             ),
           ],
         ),

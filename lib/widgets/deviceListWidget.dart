@@ -20,7 +20,7 @@ class deviceListWidget extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             //해당 부분은 data를 아직 받아 오지 못했을때 실행되는 부분을 의미한다.
             if (snapshot.hasData == false) {
-              return CircularProgressIndicator();
+              return Center(child: SizedBox(height: 20, width:20,child: CircularProgressIndicator()));
             }
             //error가 발생하게 될 경우 반환하게 되는 부분
             else if (snapshot.hasError) {
@@ -46,9 +46,6 @@ class deviceListWidget extends StatelessWidget {
 
                     String device_uuid = snapshot.data[index].keys.toList()[0];
 
-                    print("snapshot.data[index]  :  ");
-                    print(device_uuid);
-                    print(snapshot.data[index][device_uuid]);
                     return deviceButtonWidget(device_uuid, snapshot.data[index][device_uuid]);
                   },
                 ),
@@ -66,7 +63,7 @@ class deviceListWidget extends StatelessWidget {
 
 Widget deviceButtonWidget(String uuid, String key){
   return Container(
-    height: 100,
+
     child: Column(
       children: [
 
@@ -75,7 +72,7 @@ Widget deviceButtonWidget(String uuid, String key){
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               //해당 부분은 data를 아직 받아 오지 못했을때 실행되는 부분을 의미한다.
               if (snapshot.hasData == false) {
-                return CircularProgressIndicator();
+                return Container(width:20, height: 20, child: CircularProgressIndicator());
               }
               //error가 발생하게 될 경우 반환하게 되는 부분
               else if (snapshot.hasError) {
@@ -91,7 +88,11 @@ Widget deviceButtonWidget(String uuid, String key){
               }
               // 데이터를 정상적으로 받아오게 되면 다음 부분을 실행하게 되는 것이다.
               else {
-
+                print(":d");
+                print(snapshot.data["connection"]);
+                if(snapshot.data["connection"] == false){
+                  snapshot.data["connection"] = {"eventType" : "disconnected"};
+                }
                 return InkWell(
                   onTap: (){
                     Get.toNamed("/device", arguments: {"uuid":uuid, "key" : key, "name":snapshot.data["state"]["desired"]["name"].toString(), "deviceShadow": snapshot.data});
@@ -100,7 +101,7 @@ Widget deviceButtonWidget(String uuid, String key){
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        deviceIcon(snapshot.data["state"]["desired"]["name"].toString())
+                        deviceIcon(snapshot.data["state"]["desired"]["name"].toString(), snapshot.data["state"]["reported"]["isLocked"].toString(),snapshot.data["connection"]["eventType"].toString())
                       ],
                     ),
                   ),
@@ -114,11 +115,35 @@ Widget deviceButtonWidget(String uuid, String key){
   );
 }
 
-Widget deviceIcon(String name){
+Widget deviceIcon(String name, String islocked, String connection){
+  String image_path = "";
+
+  print("connection??:");
+  print(connection);
+  if (connection == null){
+    connection = "disconnected";
+  }
+
+  if(connection != "connected"){
+    image_path = "assets/images/desktop_normal.png";
+  }
+  else{
+    if(islocked == "locked"){
+      image_path = "assets/images/desktop_locked.png";
+    }
+    else{
+      image_path = "assets/images/desktop_unlocked.png";
+    }
+  }
+
   return Column(
     children: [
-      Image.asset("assets/images/desktop_normal.png", width: 81,height: 71,),
-      deviceNameText(name),
+
+      Image.asset(image_path, width: 81,height: 71,),
+      Container(
+        child: deviceNameText(name),
+        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+      ),
 
     ],
   );

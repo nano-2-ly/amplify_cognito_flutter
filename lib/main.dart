@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
 
 
 
-Future<void> _showNotification() async {
+Future<void> _showNotification(String title, String body) async {
   var _flutterLocalNotificationsPlugin;
 
   var initializationSettingsAndroid =
@@ -76,8 +76,8 @@ Future<void> _showNotification() async {
 
   await _flutterLocalNotificationsPlugin.show(
     0,
-    '잠금이 해제되었습니다.',
-    '방금 데스크탑을 직접 해제하였나요? 확인해주세요!',
+    title,
+    body,
     detail,
     payload: 'Hello Flutter',
   );
@@ -91,12 +91,12 @@ void fcm_ready() async{
   await FirebaseMessaging.instance.subscribeToTopic("notification");
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Got a message whilst in the foreground!');
-    print('Message data: ${message.data}');
+    print('Message data: ${message}');
 
     if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
+      print('Message also contained a notification: ${message.notification!.body}');
     }
-    _showNotification();
+    _showNotification(message.notification!.title.toString(), message.notification!.body.toString());
 
   });
 }

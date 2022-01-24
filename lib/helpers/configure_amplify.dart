@@ -6,11 +6,10 @@ import '../amplifyconfiguration.dart';
 
 Future<void> configureAmplify() async {
   final auth = AmplifyAuthCognito();
-  // final analytics = AmplifyAnalyticsPinpoint();
+  final analytics = AmplifyAnalyticsPinpoint();
 
   try {
-    Amplify.addPlugins([auth]);
-    // Amplify.addPlugins([auth, analytics]);
+    Amplify.addPlugins([auth, analytics]);
 
     await Amplify.configure(amplifyconfig);
   } on AmplifyAlreadyConfiguredException catch (e) {

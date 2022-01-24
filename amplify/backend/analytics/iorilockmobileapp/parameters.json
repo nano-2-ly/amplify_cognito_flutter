@@ -1,0 +1,21 @@
+{
+    "appName": "iorilockmobileapp",
+    "roleName": "pinpointLambdaRole8af17ac6",
+    "cloudformationPolicyName": "cloudformationPolicy8af17ac6",
+    "cloudWatchPolicyName": "cloudWatchPolicy8af17ac6",
+    "pinpointPolicyName": "pinpointPolicy8af17ac6",
+    "authPolicyName": "pinpoint_amplify_8af17ac6",
+    "unauthPolicyName": "pinpoint_amplify_8af17ac6",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

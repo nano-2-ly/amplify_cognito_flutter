@@ -31,7 +31,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
   }
 
 
-  void initUser() async{
+  Future<bool> initUser() async{
     var session = await Amplify.Auth.fetchAuthSession(options: CognitoSessionOptions(getAWSCredentials: true)) as CognitoAuthSession;
     print(session.userPoolTokens!.accessToken.toString());
     print(session);
@@ -54,14 +54,14 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     );
 
     print(response.body);
-
+    return true;
   }
 
 
   void _verifyCode(BuildContext context, LoginData data, String code) async {
 
     try {
-      initUser();
+
 
       final res = await Amplify.Auth.confirmSignUp(
         username: data.name,
@@ -73,6 +73,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
         final user = await Amplify.Auth.signIn(
             username: data.name, password: data.password);
 
+        await initUser();
 
         if (user.isSignedIn) {
           Get.toNamed('/dashboard');

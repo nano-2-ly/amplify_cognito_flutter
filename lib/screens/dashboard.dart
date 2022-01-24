@@ -23,8 +23,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return _currentUser;
   }
 
-
-
   @override
   void initState() {
     super.initState();
@@ -36,7 +34,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: Colors.black87, //change your color here
@@ -58,9 +55,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           )
         ],
       ),
-      
       body: Container(
-
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -73,13 +68,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    titleText("등록된 기기"),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          titleText("등록된 기기"),
+                          InkWell(
+                            child: Icon(Icons.refresh),
+                            onTap: () {
+                              setState(() {});
+                            },
+                          )
+                        ],
+                      ),
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    ),
                     FutureBuilder(
                         future: getCurrentUser(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot<AuthUser> snapshot) {
+                        builder: (BuildContext context,
+                            AsyncSnapshot<AuthUser> snapshot) {
                           if (snapshot.hasData == false) {
-                            return CircularProgressIndicator();
+                            return Container(
+                                height: 150,
+                                child: Center(
+                                    child: Container(
+                                  width: 20,
+                                  height: 20,
+                                )));
                           }
                           //error가 발생하게 될 경우 반환하게 되는 부분
                           else if (snapshot.hasError) {
@@ -95,8 +110,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           else {
                             return Column(
                               children: [
-
-                                SizedBox(
+                                Container(
                                     height: 150, child: deviceListWidget()),
                               ],
                             );
@@ -105,7 +119,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ],
                 ),
               ),
-
             ],
           ),
         ),

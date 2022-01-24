@@ -37,10 +37,12 @@ dependencies:
   firebase_messaging: ^10.0.3
   flutter_local_notifications: ^8.1.1+1
 
+
   carousel_slider: ^4.0.0
   flutter_svg: ^0.22.0
   flutter_time_picker_spinner: ^2.0.0
   google_fonts: ^2.2.0
+
 
 dev_dependencies:
   flutter_test:
